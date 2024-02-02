@@ -1,76 +1,66 @@
 ﻿@model ExpensesMVC.Models.TotalCostYears;
 
+<div class="content-container">
+    <h1 class="text-primary text-center mb-5">Year summary</h1>
 
-<h1> Year summary</h1>
+    @{
+        decimal totalSum = 0;
 
-<div>
-    <th class="text-black">
-        January: @Html.DisplayFor(modelItem => Model.January)
-    </th>
+        for (int month = 1; month <= 12; month++)
+        {
+            var monthName = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
+            var monthValue = (decimal)Model.GetType().GetProperty(monthName).GetValue(Model, null);
+            totalSum += monthValue;
+        }
+    }
 
-    <br />
+    <div class="chart-container">
+        @foreach (var month in Enumerable.Range(1, 12))
+        {
+            var monthName = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
+            var monthValue = (decimal)Model.GetType().GetProperty(monthName).GetValue(Model, null);
+            var heightPercentage = (monthValue / totalSum) * 100;
 
-    <th class="text-black">
-        February: @Html.DisplayFor(modelItem => Model.February) PLN
-    </th>
 
-    <br />
-
-    <th class="text-black">
-        March: @Html.DisplayFor(modelItem => Model.March) PLN
-    </th>
-
-    <br />
-
-    <th class="text-black">
-        April: @Html.DisplayFor(modelItem => Model.April) PLN
-    </th>
-
-    <br />
-
-    <th class="text-black">
-        May: @Html.DisplayFor(modelItem => Model.May) PLN
-    </th>
-
-    <br />
-
-    <th class="text-black">
-        June: @Html.DisplayFor(modelItem => Model.June) PLN
-    </th>
-
-    <br />
-
-    <th class="text-black">
-        July: @Html.DisplayFor(modelItem => Model.July) PLN
-    </th>
-
-    <br />
-
-    <th class="text-black">
-        August: @Html.DisplayFor(modelItem => Model.August) PLN
-    </th>
-
-    <br />
-
-    <th class="text-black">
-        September: @Html.DisplayFor(modelItem => Model.September) PLN
-    </th>
-
-    <br />
-
-    <th class="text-black">
-        October: @Html.DisplayFor(modelItem => Model.October) PLN
-    </th>
-
-    <br />
-
-    <th class="text-black">
-        November: @Html.DisplayFor(modelItem => Model.November) PLN
-    </th>
-
-    <br />
-
-    <th class="text-black">
-        December: @Html.DisplayFor(modelItem => Model.December) PLN
-    </th>
+            <div class="bar" style="height: @(heightPercentage)%;">
+                <p class="month-name">@monthName</p>
+                @if(monthValue > 0)
+                {
+                    <p class="month-sum">@monthValue zł</p>
+                }
+            </div>
+         
+        }
+    </div>
 </div>
+
+<style>
+    .chart-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        height: 300px;
+    }
+
+    .bar {
+        width: 7%;
+        background-color: rgb(76, 187, 23);
+        margin-right: 1%;
+        position: relative;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .month-name {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .month-sum {
+        transform: rotate(-90deg)
+    }
+</style>

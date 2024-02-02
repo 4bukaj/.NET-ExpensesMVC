@@ -1,32 +1,43 @@
 ﻿@model ExpensesMVC.Data.Expense;
 
-<h1>
-    Editing expense...
-</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group my-3">
-                <label asp-for="Title" class="form-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group my-3">
-                <label asp-for="Description" class="form-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group my-3">
-                <label asp-for="Price" class="form-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group my-3 d-flex justify-content-between">
-                <input type="submit" value="Confirm changes" class="btn btn-warning my-3 px-4 py-1"/>
-            </div>
-        </form>
+<div class="content-container">
+    <h1 class="text-warning text-center">
+        Edit expense
+    </h1>
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group row my-3">
+                    <label asp-for="Title" class="col-md-3 col-form-label">Category</label>
+                    <div class="col-md-9">
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <label asp-for="Description" class="col-md-3 col-form-label">Description</label>
+                    <div class="col-md-9">
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3">
+                    <label asp-for="Price" class="col-md-3 col-form-label">Price</label>
+                    <div class="col-md-9">
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row my-3 text-center">
+                    <input type="submit" value="Save changes" class="btn btn-lg btn-warning mt-2" />
+                </div>
+            </form>
+        </div>
     </div>
 </div>
